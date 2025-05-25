@@ -50,7 +50,7 @@ fn main() {
             .start(
                 canvas,
                 web_options,
-                Box::new(|cc| Ok(Box::new(learning-eframe::TemplateApp::new(cc)))),
+                Box::new(|cc| Ok(Box::new(learning_eframe::TemplateApp::new(cc)))),
             )
             .await;
 
