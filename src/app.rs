@@ -7,6 +7,9 @@ pub struct TemplateApp {
 
     #[serde(skip)] // This how you opt-out of serialization of a field
     value: f32,
+
+    name: String,
+    age: u32,
 }
 
 impl Default for TemplateApp {
@@ -15,6 +18,8 @@ impl Default for TemplateApp {
             // Example stuff:
             label: "Hello World!".to_owned(),
             value: 2.7,
+            name: "".to_owned(),
+            age: 35,
         }
     }
 }
@@ -85,6 +90,24 @@ impl eframe::App for TemplateApp {
                 "https://github.com/emilk/eframe_template/blob/main/",
                 "Source code."
             ));
+
+            ui.separator();
+
+            let name = &mut self.name;
+            let age = &mut self.age;
+
+            ui.heading("My egui Application");
+            ui.horizontal(|ui| {
+                ui.label("Your name: ");
+                ui.text_edit_singleline(name);
+            });
+            ui.add(egui::Slider::new(age, 0..=120).text("age"));
+            if ui.button("Increment").clicked() {
+                *age += 1;
+                *name = "".to_owned()
+            }
+            ui.label(format!("Hello '{name}', age {age}"));
+//            ui.image(egui::include_image!("../assets/ferris.png"));
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
